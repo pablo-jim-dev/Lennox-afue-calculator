@@ -1,0 +1,235 @@
+@import url('https://fonts.cdnfonts.com/css/gilroy-bold');
+body {
+    font-family: 'Gilroy-Bold', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    padding: 0;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+h1, h2, p, span, label {
+}
+
+.calculator {
+    display: inline-flex;
+    background: rgb(43,109,167);
+    background: -moz-radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
+    background: radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2b6da7",endColorstr="#103152",GradientType=1); 
+    color: #fff;
+    width: 100%;
+    max-width: 740px;
+    height: 100vh;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    /* max-height: 740px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background 0.34s;
+    margin-right: auto 0em;
+    margin-left: auto 0em;
+}
+
+.calculator.heat {
+    background: rgb(238,152,124);
+    background: -moz-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    background: radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee987c",endColorstr="#b25d41",GradientType=1); 
+}
+
+.calculator .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    width: 100%;
+    margin-top: 1.2em;
+}
+
+.calculator .container .toggles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+.calculator .container .toggles .selector-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.calculator .container .toggles .selector-container label {
+    height: auto;
+    line-height: 13px;
+    margin-top: 4px;
+    text-transform: uppercase;
+    font-size: 0.6em;
+    font-family: 'Gilroy-Bold', sans-serif;
+
+}
+
+.calculator .container .slider {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    background-color: #022340;
+    margin-top: 1em;
+    border-radius: 0em;
+    padding-top: 1em;
+}
+.calculator.heat > .container .slider {
+    background-color: #713D2C;
+}
+
+
+.calculator .container .slider .section-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1em;
+}
+
+.calculator .container .slider .section-title span {
+    text-transform: uppercase;
+}
+
+.calculator .container .slider .slider-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+}
+
+.calculator .container .display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    background-color: #022340;
+    margin-top: 0em;
+    border-radius: 0em;
+}
+.calculator.heat > .container .display {
+    background-color: #713D2C;
+}
+
+.calculator .container .display .display-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    padding: 0em;
+}
+
+.calculator .container .display .display-container .titles {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.calculator .container .display .display-container .titles .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    font-size: clamp(12px, 3vw, 22px);
+    text-wrap: nowrap;
+}
+.calculator .container .display .display-container .titles .title-vs {
+    margin-top: 1em;
+    width: 100%;
+}
+
+.calculator .container .display .display-container .titles .title span {
+    font-size: clamp(26px, 2vw, 2.6em);
+}
+
+.calculator .container .display .display-container .titles .title-vs span {
+    font-size: clamp(1em, 3vw, 1.2em);
+    color: #F8D7A7;
+}
+
+.calculator .container .display .display-container .data-container {
+    display: flex;
+    flex: 1;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    height: auto;
+    position: relative;
+    gap: 1em;
+}
+
+.calculator .container .display .display-container .data-container .savings, .calculator .container .display .display-container .data-container .circle-container {
+    flex: 1;
+    width: 100%;
+}
+
+@media screen and (min-width: 520px) {
+    .calculator {
+        margin: auto -2em;
+    }
+    .calculator .container {
+        padding: 2em;
+        margin-top: 0em;
+    }
+    .calculator .container .slider {
+        border-radius: 1em;
+        padding-top: 0.5em;
+        margin: 20px;
+    }
+    .calculator .container .display {
+        border-radius: 1em;
+        margin-top: 0.5em;
+    }
+    .calculator .container .display .display-container {
+        width: 90%;
+    }
+    .calculator .container .display .display-container {
+        padding: 1em;
+    }
+    .calculator .container .display .display-container .titles .title {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .calculator .container .display .display-container .titles {
+        flex-direction: row;
+    }
+    .calculator .container .display .display-container .data-container {
+        flex-direction: row;
+    }
+    .calculator.heat > .container .display .display-container .data-container .savings {
+        background-color: #824028;
+    }
+    .calculator .container .display .display-container .titles .title-vs {
+        margin-top: 0em;
+    }
+}

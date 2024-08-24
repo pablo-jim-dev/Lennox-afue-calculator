@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Savings Calculator</title>
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/switch.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/slider.css">
+    <link rel="stylesheet" href="/css/circle.css">
+    <link rel="stylesheet" href="/css/savings.css">
+    <link rel="stylesheet" href="/css/jqueryui.css">
+    <link rel="stylesheet" href="/css/jqueryslider.css">
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="container">
+            <div class="toggles">
+                <div class="switch-container">
+                    <div class="switch">
+                        <input checked="false" id="cooling-switch" class="switch-checkbox" name="switch"
+                            type="checkbox" />
+                        <label for="cooling-switch" class="switch-label">
+                            <div class="switch-inner"></div>
+                            <div class="switch-switch"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="selector-container">
+                    <label>* Based On</label>
+                    <div class="select-container">
+                        <select id="stateSelect" class="select"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="slider">
+                <div class="slider-container">
+                    <div class="section-title">
+                        <span id="savings-title">SEE HOW MUCH YOU CAN SAVE</span>
+                        <img
+                            src="/img/save-arrow.png">
+                    </div>
+                    <div class="slider-box">
+                        <div id="sliderHandle">
+                            <div id="custom-handle" class="ui-slider-handle"></div>
+                        </div>
+                        <div id="length-spans"></div>
+                    </div>
+                    <div id="rating">
+                        <p><span class="type-rating">SEER</span> <span style="font-weight: 100;">RATING</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="display">
+                <div class="display-container">
+                    <div class="titles">
+                        <div class="title">
+                            <img width="30" height="30" id="cooling-icon"
+                                src="/img/cool.svg" />
+                            <span>Cooling Savings</span>
+                        </div>
+                        <div class="title-vs">
+                            <span><span id="number-rating">10</span> <span class="type-rating">SEER</span> VS. <span
+                                    id="title-value">15 SEER</span></span>
+                        </div>
+                    </div>
+                    <div class="data-container">
+                        <div class="savings" id="savings">
+                            <div class="savings-item">
+                                <p>5-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary five-progress">
+                                    <span id="fiveYearSavings">$540</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-five-year"></div>
+                                </div>
+                            </div>
+                            <div class="savings-item">
+                                <p>10-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary">
+                                    <span id="tenYearSavings">$1,080</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-ten-year"></div>
+                                </div>
+                            </div>
+                            <div class="savings-item">
+                                <p>15-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary fifteen-progress">
+                                    <span id="fifteenYearSavings">$1,620</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-fifteen-year"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="circle-container">
+                            <svg version="1.1" viewBox="0 0 400 400" preserveAspectRatio="xMinYMin meet">
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:rgb(32,187,113);stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:rgb(158,234,107);stop-opacity:1" />
+                                </linearGradient>
+                                <circle id="progress-bar-background" cx="200.5" cy="200.5" r="140.5" stroke="#263846"
+                                    stroke-width="15" fill="none" class="c-tertiary" />
+                                <circle id="progress-bar" cx="200.5" cy="200.5" r="140.5" stroke="#000"
+                                    stroke-width="15" fill="none" stroke-dasharray="883" stroke-dashoffset="883"
+                                    class="c-octonary" />
+                            </svg>
+                            <div class="percentage-indicator-container">
+                                <span id="percentage">33<span class="percent">%</span></span>
+                                <p>SAVED PER YEAR*</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jqueryui.min.js"></script>
+<script src="/js/anime.min.js"></script>
+<script src="/js/slider.js"></script>
+</html>

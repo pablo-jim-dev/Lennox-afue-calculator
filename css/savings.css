@@ -1,0 +1,122 @@
+.savings {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    background-color: none;
+    border-radius: 0em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/paradise-technologies-e8175.appspot.com/o/calculatorv2%2Fflechas_calcu.svg?alt=media&token=603a62b3-d922-48f1-a1c2-620560219bb6');
+    background-position: top;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.savings .savings-item {
+    display: flex;
+    flex: 1;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    margin: 0px;
+}
+
+.savings-item p {
+    font-size: 12px;
+    text-align: center;
+    width: min-content;
+    margin-top: 15%;
+}
+
+.savings .progress-bar-solid {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background: #9eea6b url('https://firebasestorage.googleapis.com/v0/b/paradise-technologies-e8175.appspot.com/o/calculatorv2%2Fbg-mobile-savings-cooling.png?alt=media&token=fe78e19c-f74c-43bc-ab22-5321843b78b8') 100% 0% no-repeat; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 100%;
+    height: 28px;
+    border-radius: 0px;
+}
+
+.savings .savings-item .progress-bar-savings {
+    display: none;
+}
+
+.savings .progress-bar-solid span {
+    position: relative;
+    font-size: clamp(16px, 6vw, 30px);
+    z-index: 20;
+    color: #fff;
+    margin-top: clamp(2%, 4%, 6%);
+    height: 100%;
+}
+
+.calculator .savings .progress-bar-solid span {
+    color: #000;
+    font-family: 'Gilroy-Bold', sans-serif;
+
+}
+
+@media screen and (min-width: 520px) {
+    .savings .savings-item {
+        margin: 10px;
+    }
+    .savings-item p {
+        width: 100%;
+        margin: 8px;
+    }
+    .savings {
+        flex-direction: column;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        border-radius: 1em;
+        background-color: #1C3A54;
+        background-image: none;
+    }
+
+    .savings .progress-bar-solid span {
+        color: #17293a;
+    }
+
+    .savings .progress-bar-solid {
+        position: relative;
+        background-image: none;
+        background-color: #b2bcc5;
+        border-radius: 5px;
+        border-radius: 0.4em;
+    }
+    .calculator.heat .savings .progress-bar-solid {
+        background-image: none;
+        background-color: #b2bcc5;
+    }
+
+
+    .savings .savings-item .progress-bar-savings {
+        display: flex;
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        background: rgb(32, 187, 113);
+        background: -moz-linear-gradient(90deg, rgba(32, 187, 113, 1) 0%, rgba(158, 234, 107, 1) 100%);
+        background: -webkit-linear-gradient(90deg, rgba(32, 187, 113, 1) 0%, rgba(158, 234, 107, 1) 100%);
+        background: linear-gradient(90deg, rgba(32, 187, 113, 1) 0%, rgba(158, 234, 107, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#20bb71", endColorstr="#9eea6b", GradientType=1);
+        z-index: 10;
+        border-radius: 5px;
+    }
+    .calculator .savings .progress-bar-solid span {
+        color: #17293a;
+        margin-left: 0px;
+        margin-top: -2px;
+    }
+    
+}

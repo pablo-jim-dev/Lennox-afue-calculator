@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Savings Calculator</title>
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Findex.css?alt=media&amp;token=9a311d2a-969c-4864-9ab2-1fdcbd6b3fb8">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fswitch.css?alt=media&amp;token=ccabaa34-ad94-4649-a58a-69847b37aa7a">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fselect.css?alt=media&amp;token=05c52ba5-9c3f-473f-95fa-ca04ee015fb5">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fslider.css?alt=media&amp;token=01f50ddb-323b-44df-bbef-5620084ec482">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fcircle.css?alt=media&amp;token=f7d3d464-68d4-45e7-b41d-2428e465ef3c">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fsavings.css?alt=media&amp;token=179385fa-0978-4bfa-ae8c-71cdc7b36ffe">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fjqueryui.css?alt=media&amp;token=8fb75e34-7fa0-4bae-9d42-1d223c1ff7b9">
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/css%2Fjqueryslider.css?alt=media&amp;token=153947d9-27cd-4b8b-a20d-64cedd8c9574">
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="container">
+            <div class="toggles">
+                <div class="switch-container">
+                    <div class="switch">
+                        <input checked="false" id="cooling-switch" class="switch-checkbox" name="switch" type="checkbox">
+                        <label for="cooling-switch" class="switch-label">
+                            <div class="switch-inner"></div>
+                            <div class="switch-switch"></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="selector-container">
+                    <label>* Based On</label>
+                    <div class="select-container">
+                        <select id="stateSelect" class="select"><option>US National Average</option><option>Alabama</option><option>Alaska</option><option>Arizona</option><option>Arkansas</option><option>California</option><option>Colorado</option><option>Connecticut</option><option>Delaware</option><option>Florida</option><option>Georgia</option><option>Hawaii</option><option>Idaho</option><option>Illinois</option><option>Indiana</option><option>Iowa</option><option>Kansas</option><option>Kentucky</option><option>Louisiana</option><option>Maine</option><option>Maryland</option><option>Massachusetts</option><option>Michigan</option><option>Minnesota</option><option>Mississippi</option><option>Missouri</option><option>Montana</option><option>Nebraska</option><option>Nevada</option><option>New Hampshire</option><option>New Jersey</option><option>New Mexico</option><option>New York</option><option>North Carolina</option><option>North Dakota</option><option>Ohio</option><option>Oklahoma</option><option>Oregon</option><option>Pennsylvania</option><option>Rhode Island</option><option>South Carolina</option><option>South Dakota</option><option>Tennessee</option><option>Texas</option><option>Utah</option><option>Vermont</option><option>Virginia</option><option>Washington</option><option>West Virginia</option><option>Wisconsin</option><option>Wyoming</option></select>
+                    </div>
+                </div>
+            </div>
+            <div class="slider">
+                <div class="slider-container">
+                    <div class="section-title">
+                        <span id="savings-title">SEE HOW MUCH YOU CAN SAVE</span>
+                        <img src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/img%2Fsave-arrow.png?alt=media&amp;token=5f9126fa-e8cd-4583-a4bd-dda43e6263aa">
+                    </div>
+                    <div class="slider-box">
+                        <div id="sliderHandle" class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                            <div id="custom-handle" class="ui-slider-handle ui-corner-all ui-state-default" tabindex="0" style="left: 27.7778%;">15</div>
+                        <div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min" style="width: 27.7778%;"></div></div>
+                        <div id="length-spans"><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span>28</span></div>
+                    </div>
+                    <div id="rating">
+                        <p><span class="type-rating">SEER</span> <span style="font-weight: 100;">RATING</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="display">
+                <div class="display-container">
+                    <div class="titles">
+                        <div class="title">
+                            <img width="30" height="30" id="cooling-icon" src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/img%2Fcool.svg?alt=media&amp;token=297c94d0-7d41-4da8-bc98-b94539e216ea">
+                            <span>Cooling Savings</span>
+                        </div>
+                        <div class="title-vs">
+                            <span><span id="number-rating">10</span> <span class="type-rating">SEER</span> VS. <span id="title-value">15 SEER</span></span>
+                        </div>
+                    </div>
+                    <div class="data-container">
+                        <div class="savings" id="savings">
+                            <div class="savings-item">
+                                <p>5-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary five-progress">
+                                    <span id="fiveYearSavings"><span class="dollars">$</span>540</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-five-year" style="width: 5.4%;"></div>
+                                </div>
+                            </div>
+                            <div class="savings-item">
+                                <p>10-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary">
+                                    <span id="tenYearSavings"><span class="dollars">$</span>1,080</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-ten-year" style="width: 10.8%;"></div>
+                                </div>
+                            </div>
+                            <div class="savings-item">
+                                <p>15-YEAR SAVINGS</p>
+                                <div class="progress-bar-solid c-tertiary fifteen-progress">
+                                    <span id="fifteenYearSavings"><span class="dollars">$</span>1,620</span>
+                                    <div class="progress-bar-savings c-septenary" id="savings-fifteen-year" style="width: 16.2%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="circle-container">
+                            <svg version="1.1" viewBox="0 0 400 400" preserveAspectRatio="xMinYMin meet">
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:rgb(32,187,113);stop-opacity:1"></stop>
+                                    <stop offset="100%" style="stop-color:rgb(158,234,107);stop-opacity:1"></stop>
+                                </linearGradient>
+                                <circle id="progress-bar-background" cx="200.5" cy="200.5" r="140.5" stroke="#263846" stroke-width="15" fill="none" class="c-tertiary"></circle>
+                                <circle id="progress-bar" cx="200.5" cy="200.5" r="140.5" stroke="#000" stroke-width="15" fill="none" stroke-dasharray="883" stroke-dashoffset="883" class="c-octonary" style="stroke-dashoffset: 591.61px;"></circle>
+                            </svg>
+                            <div class="percentage-indicator-container">
+                                <span id="percentage">33<span class="percent">%</span></span>
+                                <p>SAVED PER YEAR*</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/js%2Fjquery.min.js?alt=media&amp;token=0c71fc12-539b-4c76-81a8-d8552141e3c6"></script>
+<script src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/js%2Fjqueryui.min.js?alt=media&amp;token=0ca8d2e7-73e4-4298-9ee0-30a29f01666b"></script>
+<script src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/js%2Fanime.min.js?alt=media&amp;token=fff9b0c2-fbee-4947-b800-6528bb6adc8a"></script>
+<script src="https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/js%2Fslider.js?alt=media&amp;token=ba699824-e267-4208-85cd-cf65d8dabc64"></script>
+</body></html>

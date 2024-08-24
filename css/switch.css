@@ -1,0 +1,79 @@
+.switch {
+    position: relative;
+    width: 100px;
+    user-select: none;
+}
+
+.switch-checkbox {
+    display: none;
+}
+
+.switch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid #ececec;
+    border-radius: 25px;
+}
+
+.switch-inner {
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.switch-inner:before,
+.switch-inner:after {
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    box-sizing: border-box;
+    box-shadow: 2px 0px 3px 0px rgba(0, 0, 0, 0.75) inset;
+    -webkit-box-shadow: 2px 0px 3px 0px rgba(0, 0, 0, 0.75) inset;
+    -moz-box-shadow: 2px 0px 3px 0px rgba(0, 0, 0, 0.75) inset;
+    border-radius: 25px;
+}
+
+.switch-inner:before {
+    content: "COOL";
+    padding-left: 10px;
+    background-color: #40aeec;
+    color: #ffffff;
+}
+
+.switch-inner:after {
+    content: "HEAT";
+    padding-right: 10px;
+    background-color: #ea651f;
+    color: #fff;
+    text-align: right;
+}
+
+.switch-switch {
+    width: 25px;
+    height: 25px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: 0;
+    right: 72px;
+    transition: all 0.3s ease-in 0s;
+    box-shadow: 1.4px 2px 1px 0px rgba(0, 0, 0, 0.6);
+    -webkit-box-shadow: 1.4px 2px 1px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 1.4px 2px 1px 0px rgba(0, 0, 0, 0.6);
+}
+
+.switch-checkbox:checked+.switch-label .switch-inner {
+    margin-left: 0;
+}
+
+.switch-checkbox:checked+.switch-label .switch-switch {
+    right: 4px;
+}

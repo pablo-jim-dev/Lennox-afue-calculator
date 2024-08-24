@@ -1,0 +1,68 @@
+.circle-container {
+    display: flex;
+    flex-direction: row !important;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.circle-container svg {
+    width: 100%;
+    max-width: 240px;
+}
+
+.circle-container svg circle {
+    stroke-width: 80px;
+    transform-origin: center;
+}
+
+#progress-bar {
+    transform: rotate(-90deg);
+    transform-origin: center;
+    stroke: url(#grad1)
+}
+
+.circle-container .percentage-indicator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto !important;
+    min-height: 100%;
+    min-width: 150px;
+}
+
+.circle-container .percentage-indicator-container #percentage {
+    font-size: clamp(6em, 22vw, 8em);
+    position: absolute;
+}
+
+.circle-container .percentage-indicator-container p {
+    font-size: clamp(8px, 12vw, 15px);
+    margin: 0;
+    margin-top: -1em;
+    text-transform: uppercase;
+    color: #BEA280;
+    margin-top: 100%;
+    margin-bottom: 2.6em;
+}
+
+.circle-container .percentage-indicator-container #percentage .percent {
+    font-size: clamp(28px, 8vw, 70px);
+}
+
+@media screen and (min-width: 520px) {
+    .circle-container svg {
+        max-width: 100%;
+    }
+    .circle-container svg circle {
+        stroke-width: 20px;
+        scale: 1.3;
+    }
+    .circle-container .percentage-indicator-container {
+        position: absolute;
+        min-height: 100%;
+    }
+    .circle-container {
+        flex-direction: column;
+    }
+}
