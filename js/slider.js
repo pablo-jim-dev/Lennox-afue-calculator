@@ -1,47 +1,28 @@
 const calculator = document.querySelector('.calculator')
 const lengthSpans = document.querySelector('#length-spans');
-const fiveYearSavings = document.getElementById('fiveYearSavings');
-const tenYearSavings = document.getElementById('tenYearSavings');
-const fifteenYearSavings = document.getElementById('fifteenYearSavings');
 const percentage = document.getElementById('percentage');
 const coolingSwitch = document.getElementById('cooling-switch');
 const coolingIcon = document.getElementById('cooling-icon');
 const stateSelect = document.getElementById('stateSelect');
 const savingsTitle = document.getElementById('savings-title');
-
 const savingsFiveYearBar = document.getElementById('savings-five-year');
 const savingsTenYearBar = document.getElementById('savings-ten-year');
 const savingsFifteenYearBar = document.getElementById('savings-fifteen-year');
-
 const progressBar = document.getElementById('progress-bar');
+// Constantes
+const BTU_INPUT = 80000; // BTU/hora
+const HOURS_PER_YEAR = 8 * 180; // 8 horas/día * 180 días (temporada de calefacción)
+// DOM
+const costInput = document.getElementById('costPerTherm');
+const fiveYearSavingsElement = document.getElementById('fiveYearSavings');
+const tenYearSavingsElement = document.getElementById('tenYearSavings');
+const fifteenYearSavingsElement = document.getElementById('fifteenYearSavings');
+// Default values
+let costPerTherm = parseFloat(costInput.value) || 1.50; // Default to 1.50 if no input
+let currentAFUE = 80; // Valor AFUE predeterminado (puede ajustarse dinámicamente con el slider)
+
 var handle = $("#custom-handle");
 var x = window.matchMedia("(max-width: 520px)")
-
-// FunciÃ³n para cambiar las opciones del selector
-function changeOptions() {
-    // Verificar si el interruptor de refrigeraciÃ³n estÃ¡ marcado
-    if (coolingSwitch.checked) {
-        // Si estÃ¡ marcado, usar las opciones de afueValues
-        updateOptions(savingsData);
-    } else {
-        // Si no estÃ¡ marcado, usar las opciones de savingsData
-        updateOptions(afueValues);
-
-    }
-}
-
-// FunciÃ³n para actualizar las opciones del selector
-function updateOptions(data) {
-    // Limpiar las opciones actuales
-    stateSelect.innerHTML = "";
-
-    // Agregar las nuevas opciones
-    for (const state in data) {
-        const option = document.createElement("option");
-        option.text = state;
-        stateSelect.add(option);
-    }
-}
 
 const savingsData = {
     "US National Average": {
@@ -966,91 +947,147 @@ const afueValues = {
     }
 };
 
+// Función para cambiar las opciones del selector
+function changeOptions() {
+    // Verificar si el interruptor de refrigeración está marcado
+    if (coolingSwitch.checked) {
+        // Si está marcado, usar las opciones de afueValues
+        updateOptions(savingsData);
+    } else {
+        // Si no está marcado, usar las opciones de savingsData
+        updateOptions(afueValues);
 
-function updateSavings(value) {
-    const seerValue = value ? value : $("#sliderHandle").slider("value");
-    document.getElementById('title-value').textContent = `${seerValue} ${coolingSwitch.checked ? "SEER" : "AFUE"}`
+    }
+}
 
-    const selectedState = stateSelect.value;
-    const savings = getSavings(selectedState, seerValue);
+// Función para actualizar las opciones del selector
+function updateOptions(data) {
+    // Limpiar las opciones actuales
+    stateSelect.innerHTML = "";
 
-    percentage.innerHTML = `${savings.percent}<span class="percent">%</span>`;
+    // Agregar las nuevas opciones
+    for (const state in data) {
+        const option = document.createElement("option");
+        option.text = state;
+        stateSelect.add(option);
+    }
+}
 
-    const formatter = new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-    });
+// Función para calcular los Therms consumidos
+function calculateThermsConsumed(afue) {
+    return (BTU_INPUT / afue) / 100000;
+}
+// Función para calcular el costo de energía
+function calculateEnergyCost(thermsConsumed, costPerTherm) {
+    return thermsConsumed * costPerTherm;
+}
+
+// Función para calcular el ahorro anual
+function calculateAnnualSavings(oldAFUE, newAFUE) {
+    const thermsOld = calculateThermsConsumed(oldAFUE);
+    const thermsNew = calculateThermsConsumed(newAFUE);
+
+    const costOld = calculateEnergyCost(thermsOld, costPerTherm);
+    const costNew = calculateEnergyCost(thermsNew, costPerTherm);
+
+    return (costOld - costNew) * HOURS_PER_YEAR;
+}
+
+
+function updateSavings() {
+    const oldAFUE = 70; // Suponemos que el AFUE de la caldera vieja es 70
+    const annualSavings = calculateAnnualSavings(oldAFUE, currentAFUE);
+
+    const fiveYearSavings = annualSavings * 5;
+    const tenYearSavings = annualSavings * 10;
+    const fifteenYearSavings = annualSavings * 15;
+
+    // Actualizar los elementos del DOM con los valores calculados
+    // fiveYearSavingsElement.innerText = `$${fiveYearSavings.toFixed(2)}`;
+    // tenYearSavingsElement.innerText = `$${tenYearSavings.toFixed(2)}`;
+    // fifteenYearSavingsElement.innerText = `$${fifteenYearSavings.toFixed(2)}`;
 
     anime({
         targets: { value: 0 },
-        value: savings.fiveYear,
+        value: fiveYearSavings,
         easing: 'linear',
         round: 1,
         duration: 1100,
         update: function (anim) {
-            fiveYearSavings.innerHTML = `<span class="dollars">$</span>${formatter.format(anim.animatables[0].target.value)}`;
+            fiveYearSavingsElement.innerHTML = `<span class="dollars">$</span>${anim.animatables[0].target.value}`;
         }
     });
     anime({
         targets: { value: 0 },
-        value: savings.tenYear,
+        value: tenYearSavings,
         easing: 'linear',
         round: 1,
         duration: 1100,
         update: function (anim) {
-            tenYearSavings.innerHTML = `<span class="dollars">$</span>${formatter.format(anim.animatables[0].target.value)}`;
+            tenYearSavingsElement.innerHTML = `<span class="dollars">$</span>${anim.animatables[0].target.value}`;
         }
     });
     anime({
         targets: { value: 0 },
-        value: savings.fifteenYear,
+        value: fifteenYearSavings,
         easing: 'linear',
         round: 1,
         duration: 1100,
         update: function (anim) {
-            fifteenYearSavings.innerHTML = `<span class="dollars">$</span>${formatter.format(anim.animatables[0].target.value)}`;
+            fifteenYearSavingsElement.innerHTML = `<span class="dollars">$</span>${anim.animatables[0].target.value}`;
         }
     });
 
     anime({
         targets: savingsFiveYearBar,
-        width: `${savings.fiveYear / 100}%`,
+        width: `${fiveYearSavings / 100}%`,
         duration: 400,
         easing: 'linear',
     });
     anime({
         targets: savingsTenYearBar,
-        width: `${savings.tenYear / 100}%`,
+        width: `${tenYearSavings / 100}%`,
         duration: 500,
         easing: 'linear',
     });
     anime({
         targets: savingsFifteenYearBar,
-        width: `${coolingSwitch.checked ? savings.fifteenYear / 100 : savings.fifteenYear / 130}%`,
+        width: `${fifteenYearSavings / 100}%`,
         duration: 600,
         easing: 'linear',
     });
-    updateProgressBar(savings.percent);
+    // updateProgressBar(savings.percent.toFixed(2));
 }
 
-function getSavings(state, seer) {
-    const stateData = coolingSwitch.checked ? savingsData[state] : afueValues[state];
-    if (stateData[seer]) {
-        return stateData[seer];
-    }
-    const keys = Object.keys(stateData).map(Number);
-    const lowerBound = Math.max(...keys.filter(key => key < seer));
-    const upperBound = Math.min(...keys.filter(key => key > seer));
-    const lowerSavings = stateData[lowerBound];
-    const upperSavings = stateData[upperBound];
-    const interpolationFactor = (seer - lowerBound) / (upperBound - lowerBound);
-    const percent = interpolate(lowerSavings.percent, upperSavings.percent, interpolationFactor);
-    const fiveYear = interpolate(lowerSavings.fiveYear, upperSavings.fiveYear, interpolationFactor);
-    const tenYear = interpolate(lowerSavings.tenYear, upperSavings.tenYear, interpolationFactor);
-    const fifteenYear = interpolate(lowerSavings.fifteenYear, upperSavings.fifteenYear, interpolationFactor);
+function getSavings(e, t) {
+    let afueOld = 70; // Ejemplo de AFUE antiguo
+    let afueNew = t;
 
-    return { percent, fiveYear, tenYear, fifteenYear };
+    // Cálculo de Therms consumidos
+    const thermsOld = (BTU_INPUT / afueOld) / 100000;
+    const thermsNew = (BTU_INPUT / afueNew) / 100000;
+
+    // Cálculo del costo de energía
+    const costOld = thermsOld * costPerTherm;
+    const costNew = thermsNew * costPerTherm;
+
+    // Cálculo de ahorros anuales
+    const annualSavings = (costOld - costNew) * 365; // Suponiendo uso diario
+
+    // Cálculo de ahorros en 5, 10 y 15 años
+    const fiveYearSavings = annualSavings * 5;
+    const tenYearSavings = annualSavings * 10;
+    const fifteenYearSavings = annualSavings * 15;
+
+    // Actualizar la UI con los valores calculados
+    return {
+        percent: (afueNew - afueOld) / afueOld * 100,
+        fiveYear: fiveYearSavings,
+        tenYear: tenYearSavings,
+        fifteenYear: fifteenYearSavings,
+    };
 }
+
 
 function updateProgressBar(percent) {
     const dashArray = 883;
@@ -1073,6 +1110,11 @@ stateSelect.addEventListener('change', () => {
     console.log("updating");
 });
 
+costInput.addEventListener('input', function () {
+    costPerTherm = parseFloat(this.value) || 1.50; // Actualizar el costo por Therm
+    updateSavings(); // Recalcular los ahorros
+});
+
 changeOptions();
 
 coolingSwitch.addEventListener('change', (e) => {
@@ -1080,60 +1122,19 @@ coolingSwitch.addEventListener('change', (e) => {
     if (coolingSwitch.checked) {
         calculator.classList.remove('heat');
         document.querySelector('#progress-bar-background').style.stroke = "#263846";
-        const size = resize(x);
-        console.log('size: ', size);
-        size === true ? updateSpans(10, 28, 2) : updateSpans(10, 28, 1);
-        $("#sliderHandle").slider({
-            min: 10,
-            max: 28,
-            step: 1,
-            value: 15
-        });
-        updateSavings(15)
-        anime({
-            targets: coolingIcon,
-            opacity: [0, 1],
-            duration: 300,
-            easing: 'linear',
-        })
-        coolingIcon.src = "https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/img%2Fcool.svg?alt=media&token=297c94d0-7d41-4da8-bc98-b94539e216ea"
-        document.querySelector('.titles .title span').innerHTML = "Cooling Savings"
-        document.querySelectorAll('.type-rating').forEach((element) => {
-            element.textContent = "SEER"
-        });
+        coolingIcon.src = "/img/cool.svg"
         document.getElementById('number-rating').textContent = "10 "
     } else {
         calculator.classList.add('heat');
         document.querySelector('#progress-bar-background').style.stroke = "#4A1F1F";
-        updateSpans(60, 99, 5);
-        $("#sliderHandle").slider({
-            min: 60,
-            max: 99,
-            step: 5,
-            value: 80
-        });
-        updateSavings(80)
-        anime({
-            targets: coolingIcon,
-            opacity: [0, 1],
-            duration: 300,
-            easing: 'linear',
-        })
-        coolingIcon.src = "https://firebasestorage.googleapis.com/v0/b/calculator-bedf3.appspot.com/o/img%2Fheat.svg?alt=media&token=78d0243f-859d-483c-a157-45c1daafd8b8"
-        document.querySelector('.titles .title span').innerHTML = "Heating Savings"
-        document.querySelectorAll('.type-rating').forEach((element) => {
-            element.textContent = "AFUE"
-        })
+        coolingIcon.src = "/img/heat.svg"
         document.getElementById('number-rating').textContent = "60 "
     }
     handle.text($("#sliderHandle").slider("value"));
 });
 
 function updateSpans(min, max, salt) {
-    // Limpiar el contenido previo
     $(lengthSpans).empty();
-
-    // Generar nuevos spans
     for (let i = min; i <= max; i += salt) {
         $(lengthSpans).append(`<span>${i}</span>`);
     }
@@ -1141,20 +1142,22 @@ function updateSpans(min, max, salt) {
 
 $(function () {
     $("#sliderHandle").slider({
-        min: 10,
-        max: 28,
-        value: 15,
+        min: 60,
+        max: 95,
+        value: 80,
+        step: 1,
         range: 'min',
         create: function (event, ui) {
             handle.text($(this).slider("value"));
             // updateSpans($(this).slider("option", "min"), $(this).slider("option", "max"), 1);
-            const size = resize(x);
-            size === true ? updateSpans(10, 28, 2) : updateSpans(10, 28, 1);
-            updateSavings(15);
+            resize(x);
+            updateSpans(60, 95, 5);
+            updateSavings();
         },
         slide: function (event, ui) {
-            handle.text(ui.value);
-            updateSavings(ui.value);
+            currentAFUE = ui.value;
+            handle.text(currentAFUE);
+            updateSavings();
         },
     });
 });
@@ -1162,15 +1165,9 @@ $(function () {
 function resize(x) {
     if (x.matches) {
         savingsTitle.textContent = "SEE YOUR SAVINGS"
-        if (coolingSwitch.checked) {
-            updateSpans(10, 28, 2);
-        }
         return true;
     } else {
         savingsTitle.textContent = "SEE HOW MUCH YOU CAN SAVE"
-        if (coolingSwitch.checked) {
-            updateSpans(10, 28, 1);
-        }
         return false;
     }
 }
