@@ -956,7 +956,6 @@ function changeOptions() {
     } else {
         // Si no está marcado, usar las opciones de savingsData
         updateOptions(afueValues);
-
     }
 }
 
@@ -975,37 +974,36 @@ function updateOptions(data) {
 
 // Función para calcular los Therms consumidos
 function calculateThermsConsumed(afue) {
-    return (BTU_INPUT / afue) / 100000;
+    const Therms = (BTU_INPUT / afue) * (1 / 100000);
+    return Therms * 100 // Multiplicamos por 100 para obtener un número más grande
 }
 // Función para calcular el costo de energía
 function calculateEnergyCost(thermsConsumed, costPerTherm) {
     return thermsConsumed * costPerTherm;
 }
 
+
 // Función para calcular el ahorro anual
 function calculateAnnualSavings(oldAFUE, newAFUE) {
-    const thermsOld = calculateThermsConsumed(oldAFUE);
-    const thermsNew = calculateThermsConsumed(newAFUE);
+    const thermsOld = calculateThermsConsumed(oldAFUE); // Therms consumidos por la caldera vieja
+    const thermsNew = calculateThermsConsumed(newAFUE); // Therms consumidos por la caldera nueva
 
-    const costOld = calculateEnergyCost(thermsOld, costPerTherm);
-    const costNew = calculateEnergyCost(thermsNew, costPerTherm);
+    const costOld = calculateEnergyCost(thermsOld, costPerTherm); // Costo con la caldera vieja    
+    const costNew = calculateEnergyCost(thermsNew, costPerTherm); // Costo con la caldera nueva
 
-    return (costOld - costNew) * HOURS_PER_YEAR;
+    const savings = (costOld - costNew) * HOURS_PER_YEAR; // Ahorro anual
+    return savings
 }
+
 
 
 function updateSavings() {
     const oldAFUE = 70; // Suponemos que el AFUE de la caldera vieja es 70
     const annualSavings = calculateAnnualSavings(oldAFUE, currentAFUE);
 
-    const fiveYearSavings = annualSavings * 5;
-    const tenYearSavings = annualSavings * 10;
-    const fifteenYearSavings = annualSavings * 15;
-
-    // Actualizar los elementos del DOM con los valores calculados
-    // fiveYearSavingsElement.innerText = `$${fiveYearSavings.toFixed(2)}`;
-    // tenYearSavingsElement.innerText = `$${tenYearSavings.toFixed(2)}`;
-    // fifteenYearSavingsElement.innerText = `$${fifteenYearSavings.toFixed(2)}`;
+    const fiveYearSavings = 5 * annualSavings;
+    const tenYearSavings = 10 * annualSavings;
+    const fifteenYearSavings = 15 * annualSavings;
 
     anime({
         targets: { value: 0 },
@@ -1056,38 +1054,8 @@ function updateSavings() {
         duration: 600,
         easing: 'linear',
     });
-    // updateProgressBar(savings.percent.toFixed(2));
+    // updateProgressBar(afueValues[stateSelect?.value][currentAFUE].percent);
 }
-
-function getSavings(e, t) {
-    let afueOld = 70; // Ejemplo de AFUE antiguo
-    let afueNew = t;
-
-    // Cálculo de Therms consumidos
-    const thermsOld = (BTU_INPUT / afueOld) / 100000;
-    const thermsNew = (BTU_INPUT / afueNew) / 100000;
-
-    // Cálculo del costo de energía
-    const costOld = thermsOld * costPerTherm;
-    const costNew = thermsNew * costPerTherm;
-
-    // Cálculo de ahorros anuales
-    const annualSavings = (costOld - costNew) * 365; // Suponiendo uso diario
-
-    // Cálculo de ahorros en 5, 10 y 15 años
-    const fiveYearSavings = annualSavings * 5;
-    const tenYearSavings = annualSavings * 10;
-    const fifteenYearSavings = annualSavings * 15;
-
-    // Actualizar la UI con los valores calculados
-    return {
-        percent: (afueNew - afueOld) / afueOld * 100,
-        fiveYear: fiveYearSavings,
-        tenYear: tenYearSavings,
-        fifteenYear: fifteenYearSavings,
-    };
-}
-
 
 function updateProgressBar(percent) {
     const dashArray = 883;
@@ -1099,10 +1067,6 @@ function updateProgressBar(percent) {
         easing: 'spring(1, 80, 10, 0)',
         duration: 600,
     });
-}
-
-function interpolate(start, end, factor) {
-    return Math.round(start + (end - start) * factor);
 }
 
 stateSelect.addEventListener('change', () => {
@@ -1156,6 +1120,7 @@ $(function () {
         },
         slide: function (event, ui) {
             currentAFUE = ui.value;
+            // console.log("currentAFUE: ", currentAFUE);
             handle.text(currentAFUE);
             updateSavings();
         },

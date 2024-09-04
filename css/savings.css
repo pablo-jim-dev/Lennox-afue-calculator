@@ -105,6 +105,7 @@
         left: 0;
         top: 0;
         height: 100%;
+        max-width: 100%;
         background: rgb(32, 187, 113);
         background: -moz-linear-gradient(90deg, rgba(32, 187, 113, 1) 0%, rgba(158, 234, 107, 1) 100%);
         background: -webkit-linear-gradient(90deg, rgba(32, 187, 113, 1) 0%, rgba(158, 234, 107, 1) 100%);
