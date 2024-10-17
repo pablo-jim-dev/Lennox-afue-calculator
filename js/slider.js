@@ -947,18 +947,6 @@ const afueValues = {
     }
 };
 
-// Función para cambiar las opciones del selector
-function changeOptions() {
-    // Verificar si el interruptor de refrigeración está marcado
-    if (coolingSwitch.checked) {
-        // Si está marcado, usar las opciones de afueValues
-        updateOptions(savingsData);
-    } else {
-        // Si no está marcado, usar las opciones de savingsData
-        updateOptions(afueValues);
-    }
-}
-
 // Función para actualizar las opciones del selector
 function updateOptions(data) {
     // Limpiar las opciones actuales
@@ -1054,12 +1042,13 @@ function updateSavings() {
         duration: 600,
         easing: 'linear',
     });
-    // updateProgressBar(afueValues[stateSelect?.value][currentAFUE].percent);
+    updateProgressBar(afueValues[stateSelect?.value][currentAFUE].percent);
 }
 
 function updateProgressBar(percent) {
     const dashArray = 883;
     const dashOffset = dashArray * (1 - percent / 100);
+    percentage.innerHTML = `${percent}<span class="percent">%</span>`;
     anime({
         targets: progressBar,
         strokeDashoffset: dashOffset,
@@ -1079,23 +1068,7 @@ costInput.addEventListener('input', function () {
     updateSavings(); // Recalcular los ahorros
 });
 
-changeOptions();
-
-coolingSwitch.addEventListener('change', (e) => {
-    changeOptions()
-    if (coolingSwitch.checked) {
-        calculator.classList.remove('heat');
-        document.querySelector('#progress-bar-background').style.stroke = "#263846";
-        coolingIcon.src = "/img/cool.svg"
-        document.getElementById('number-rating').textContent = "10 "
-    } else {
-        calculator.classList.add('heat');
-        document.querySelector('#progress-bar-background').style.stroke = "#4A1F1F";
-        coolingIcon.src = "/img/heat.svg"
-        document.getElementById('number-rating').textContent = "60 "
-    }
-    handle.text($("#sliderHandle").slider("value"));
-});
+updateOptions(afueValues);
 
 function updateSpans(min, max, salt) {
     $(lengthSpans).empty();
@@ -1109,7 +1082,7 @@ $(function () {
         min: 60,
         max: 95,
         value: 80,
-        step: 1,
+        step: 5,
         range: 'min',
         create: function (event, ui) {
             handle.text($(this).slider("value"));

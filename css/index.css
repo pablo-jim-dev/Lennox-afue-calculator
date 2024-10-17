@@ -16,11 +16,11 @@ h1, h2, p, span, label {
 
 .calculator {
     display: inline-flex;
-    background: rgb(43,109,167);
-    background: -moz-radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
-    background: -webkit-radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
-    background: radial-gradient(circle, rgba(43,109,167,1) 0%, rgba(16,49,82,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#2b6da7",endColorstr="#103152",GradientType=1); 
+    background: rgb(238,152,124);
+    background: -moz-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    background: -webkit-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    background: radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee987c",endColorstr="#b25d41",GradientType=1); 
     color: #fff;
     width: 100%;
     max-width: 740px;
@@ -34,13 +34,6 @@ h1, h2, p, span, label {
     margin-left: auto 0em;
 }
 
-.calculator.heat {
-    background: rgb(238,152,124);
-    background: -moz-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
-    background: -webkit-radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
-    background: radial-gradient(circle, rgba(238,152,124,1) 0%, rgba(178,93,65,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ee987c",endColorstr="#b25d41",GradientType=1); 
-}
 
 .calculator .container {
     display: flex;
@@ -87,15 +80,11 @@ h1, h2, p, span, label {
     width: 100%;
     height: auto;
     padding: 0px;
-    background-color: #022340;
+    background-color: #713D2C;
     margin-top: 1em;
     border-radius: 0em;
     padding-top: 1em;
 }
-.calculator.heat > .container .slider {
-    background-color: #713D2C;
-}
-
 
 .calculator .container .slider .section-title {
     display: flex;
@@ -125,12 +114,9 @@ h1, h2, p, span, label {
     width: 100%;
     height: auto;
     padding: 0px;
-    background-color: #022340;
+    background-color: #713D2C;
     margin-top: 0em;
     border-radius: 0em;
-}
-.calculator.heat > .container .display {
-    background-color: #713D2C;
 }
 
 .calculator .container .display .display-container {
@@ -226,7 +212,7 @@ h1, h2, p, span, label {
     .calculator .container .display .display-container .data-container {
         flex-direction: row;
     }
-    .calculator.heat > .container .display .display-container .data-container .savings {
+    .calculator > .container .display .display-container .data-container .savings {
         background-color: #824028;
     }
     .calculator .container .display .display-container .titles .title-vs {

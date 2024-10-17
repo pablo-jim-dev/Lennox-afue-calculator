@@ -93,11 +93,6 @@
         border-radius: 5px;
         border-radius: 0.4em;
     }
-    .calculator.heat .savings .progress-bar-solid {
-        background-image: none;
-        background-color: #b2bcc5;
-    }
-
 
     .savings .savings-item .progress-bar-savings {
         display: flex;
